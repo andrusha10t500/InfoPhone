@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+adb kill-server
 DEVICE_ALL=$(adb devices | awk '/device/ && $1!~/List/ {print($1)}')
 
 function connectDevice() {
