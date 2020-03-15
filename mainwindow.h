@@ -10,8 +10,7 @@
 #include <QMessageBox>
 #include <QString>
 #include <QDebug>
-
-
+#include <QProgressBar>
 
 namespace Ui {
 class MainWindow;
