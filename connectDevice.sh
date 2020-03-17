@@ -34,6 +34,7 @@ if [ "$DEVICE_ALL" = "" ]
    else echo 'your devices is not connected!'
   fi
  else
+  #На случай если 2 устройства, грохаем сервер
   adb kill-server
   DEVICE_ALL=$(adb devices | awk '/device/ && $1!~/List/ {print($1)}' | awk 'NR~/1/{printf($1)}')
   exec adb -s ${DEVICE_ALL%:*} shell su -c "cat /sys/class/power_supply/battery/capacity"
