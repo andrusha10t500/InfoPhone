@@ -13,8 +13,7 @@
 #include <QProgressBar>
 
 namespace Ui {
-class MainWindow;
-
+class MainWindow;    
 }
 
 class MainWindow : public QMainWindow
@@ -24,7 +23,14 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+//    void ExecuteShellCommands(QString str);
     ~MainWindow();
+
+private slots:
+    void WakeUphone();
+    void OpenWhatsApp();
+    void OpenWebPage();
+    void ExecuteShellCommands(QString str);
 
 private:
     Ui::MainWindow *ui;

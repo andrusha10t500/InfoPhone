@@ -14,8 +14,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    timer.cpp
+    mainthread.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    mainthread.h
 
 FORMS    += mainwindow.ui
