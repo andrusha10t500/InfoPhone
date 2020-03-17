@@ -41,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::WakeUphone() {
+
     this->ExecuteShellCommands("adb shell input keyevent 26");
     //adb shell input keyevent 26
 }
@@ -56,15 +57,12 @@ void MainWindow::OpenWebPage() {
 //    ui->lineEdit->setEnabled(true);
 //    ui->pushButton_3->setText("Отправить");
     this->ExecuteShellCommands("adb shell am start -a android.intent.action.VIEW http://www.google.com");
-//    QString str("adb shell am start -a android.intent.action.VIEW " + ui->lineEdit->text());
-
-    //adb shell am start -a android.intent.action.VIEW http://www.google.com
 }
 
 void MainWindow::ExecuteShellCommands(QString str) {
-    QMessageBox * msgbox = new QMessageBox;
-    msgbox->setText(str);
-    msgbox->show();
+//    QMessageBox * msgbox = new QMessageBox;
+//    msgbox->setText(str);
+//    msgbox->show();
     QProcess qp;
     QString proc;
     const int waitTime=15000;
@@ -72,8 +70,6 @@ void MainWindow::ExecuteShellCommands(QString str) {
     qp.start(str);
     qp.waitForStarted(waitTime);
     qp.waitForFinished(waitTime);
-
-    proc = qp.readAll();
 }
 
 MainWindow::~MainWindow()

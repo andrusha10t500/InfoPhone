@@ -1,7 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
 DEVICE_ALL=$(adb devices | awk '/device/ && $1!~/List/ {print($1)}')
-#if [ "$DEVICE_ALL" = "" ] ; then adb kill-server; fi
 
 function connectDevice() {
 AllIPString=$(echo 192.168.0.{1..254} | xargs -n1 -P0 ping -c1 | grep "bytes from" | awk '{printf($4)}')
@@ -35,8 +34,9 @@ if [ "$DEVICE_ALL" = "" ]
    else echo 'your devices is not connected!'
   fi
  else
-  #echo 'уже подключено устройство: '$DEVICE_ALL
-  adb -s ${DEVICE_ALL%:*} shell su -c "cat /sys/class/power_supply/battery/capacity"
+  adb kill-server
+  DEVICE_ALL=$(adb devices | awk '/device/ && $1!~/List/ {print($1)}' | awk 'NR~/1/{printf($1)}')
+  exec adb -s ${DEVICE_ALL%:*} shell su -c "cat /sys/class/power_supply/battery/capacity"
 fi
 
 DEVICE_ALL=""
