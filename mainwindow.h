@@ -11,6 +11,7 @@
 #include <QString>
 #include <QDebug>
 #include <QProgressBar>
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;    
@@ -32,6 +33,7 @@ private slots:
     void OpenWebPage();
     void ExecCommand();
     void ExecuteShellCommands(QString str);
+    void RefreshInfoBatary();
 
 private:
     Ui::MainWindow *ui;

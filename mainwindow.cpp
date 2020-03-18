@@ -9,12 +9,16 @@ MainWindow::MainWindow(QWidget *parent) :
     QString proc;
     const int waitTime=15000;
     QString cmd("connectDevice.sh");
+    QTimer * t = new QTimer(this);
+    connect(t,SIGNAL(timeout()),this,SLOT(RefreshInfoBatary()));
+    t->start(10000);
 
     qp.start("/bin/bash", QStringList() << cmd);
     qp.waitForStarted(waitTime);
     qp.waitForFinished(waitTime);
 
     proc = qp.readAll();
+
 
     ui->setupUi(this);    
     ui->progressBar_2->setMinimum(0);
@@ -83,6 +87,27 @@ void MainWindow::ExecuteShellCommands(QString str) {
     QMessageBox * msgbox = new QMessageBox;
     msgbox->setText(proc);
     msgbox->show();
+}
+
+void MainWindow::RefreshInfoBatary(){
+    QProcess qp;
+    QString proc;
+    const int waitTime=15000;
+    QString cmd("connectDevice.sh");
+
+    qp.start("/bin/bash", QStringList() << cmd);
+    qp.waitForStarted(waitTime);
+    qp.waitForFinished(waitTime);
+
+    proc = qp.readAll();
+
+//    QMessageBox * msgbox = new QMessageBox;
+//    msgbox->setText(proc);
+//    msgbox->show();
+
+    ui->progressBar_2->setMinimum(0);
+    ui->progressBar_2->setMaximum(100);
+    if(proc.toInt() > 0) ui->progressBar_2->setValue(proc.toInt());
 }
 
 MainWindow::~MainWindow()
