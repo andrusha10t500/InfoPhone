@@ -5,6 +5,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
+    QIcon icon("/home/leo/document/QTProjects/InfoPhone/InfoPhone.ico");
+    w.setWindowIcon(icon);
     w.show();
 
 //    QHBoxLayout * layout = new QHBoxLayout;
