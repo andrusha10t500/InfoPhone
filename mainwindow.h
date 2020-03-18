@@ -30,6 +30,7 @@ private slots:
     void WakeUphone();
     void OpenWhatsApp();
     void OpenWebPage();
+    void ExecCommand();
     void ExecuteShellCommands(QString str);
 
 private:

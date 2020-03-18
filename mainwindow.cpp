@@ -26,11 +26,13 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->pushButton->setEnabled(true);
         ui->pushButton_2->setEnabled(true);
         ui->pushButton_3->setEnabled(true);
+        ui->pushButton_4->setEnabled(true);
         connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(WakeUphone()));
         connect(ui->pushButton_2,SIGNAL(clicked()),this,SLOT(OpenWhatsApp()));
 //        QString str("adb shell am start -a android.intent.action.VIEW http://www.google.com");
 //        QString str(ui->lineEdit->text());
         connect(ui->pushButton_3,SIGNAL(clicked()),this,SLOT(OpenWebPage()));
+        connect(ui->pushButton_4,SIGNAL(clicked()),this,SLOT(ExecCommand()));
 
     } else {
         ui->label_2->setText("Телефон не подключен");
@@ -38,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->pushButton->setEnabled(false);
         ui->pushButton_2->setEnabled(false);
         ui->pushButton_3->setEnabled(false);
+        ui->pushButton_4->setEnabled(false);
     }
 }
 
@@ -58,6 +61,10 @@ void MainWindow::OpenWebPage() {
     this->ExecuteShellCommands("adb shell am start -a android.intent.action.VIEW https://" + ui->lineEdit->text());
 }
 
+void MainWindow::ExecCommand() {
+    this->ExecuteShellCommands("adb shell " + ui->lineEdit_2->text());
+}
+
 void MainWindow::ExecuteShellCommands(QString str) {
 //    QMessageBox * msgbox = new QMessageBox;
 //    msgbox->setText(str);
@@ -70,6 +77,12 @@ void MainWindow::ExecuteShellCommands(QString str) {
     qp.start(str);
     qp.waitForStarted(waitTime);
     qp.waitForFinished(waitTime);
+
+    proc = qp.readAll();
+
+    QMessageBox * msgbox = new QMessageBox;
+    msgbox->setText(proc);
+    msgbox->show();
 }
 
 MainWindow::~MainWindow()
