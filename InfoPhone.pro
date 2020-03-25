@@ -13,8 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    smsform.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    smsform.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    smsform.ui

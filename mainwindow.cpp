@@ -11,14 +11,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QString cmd("connectDevice.sh");
     QTimer * t = new QTimer(this);
     connect(t,SIGNAL(timeout()),this,SLOT(RefreshInfoBatary()));
-    t->start(10000);
+
 
     qp.start("/bin/bash", QStringList() << cmd);
     qp.waitForStarted(waitTime);
     qp.waitForFinished(waitTime);
 
     proc = qp.readAll();
-
 
     ui->setupUi(this);    
     ui->progressBar_2->setMinimum(0);
@@ -31,45 +30,51 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->pushButton_2->setEnabled(true);
         ui->pushButton_3->setEnabled(true);
         ui->pushButton_4->setEnabled(true);
+        ui->pushButton_5->setEnabled(true);
+        t->start(10000);
         connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(WakeUphone()));
         connect(ui->pushButton_2,SIGNAL(clicked()),this,SLOT(OpenWhatsApp()));
 //        QString str("adb shell am start -a android.intent.action.VIEW http://www.google.com");
 //        QString str(ui->lineEdit->text());
         connect(ui->pushButton_3,SIGNAL(clicked()),this,SLOT(OpenWebPage()));
         connect(ui->pushButton_4,SIGNAL(clicked()),this,SLOT(ExecCommand()));
+        connect(ui->pushButton_5,SIGNAL(clicked()),this,SLOT(OpenSmsForm()));
 
     } else {
         ui->label_2->setText("Телефон не подключен");
-        ui->progressBar_2->setValue(0);        
+        ui->progressBar_2->setValue(0);
         ui->pushButton->setEnabled(false);
         ui->pushButton_2->setEnabled(false);
         ui->pushButton_3->setEnabled(false);
         ui->pushButton_4->setEnabled(false);
+        ui->pushButton_5->setEnabled(false);
     }
 }
 
 void MainWindow::WakeUphone() {
-
     this->ExecuteShellCommands("adb shell input keyevent 26");
     //adb shell input keyevent 26
 }
 
 void MainWindow::OpenWhatsApp() {
-
     this->ExecuteShellCommands("adb shell am start -n com.whatsapp/com.whatsapp.Conversation");
     //adb shell am start -n com.whatsapp/com.whatsapp.Conversation
 }
 
 void MainWindow::OpenWebPage() {
-
     this->ExecuteShellCommands("adb shell am start -a android.intent.action.VIEW https://" + ui->lineEdit->text());
+}
+
+void MainWindow::OpenSmsForm() {
+    SMSForm * sms = new SMSForm;
+    sms->show();
 }
 
 void MainWindow::ExecCommand() {
     this->ExecuteShellCommands("adb shell " + ui->lineEdit_2->text());
 }
 
-void MainWindow::ExecuteShellCommands(QString str) {
+QString MainWindow::ExecuteShellCommands(QString str) {
 //    QMessageBox * msgbox = new QMessageBox;
 //    msgbox->setText(str);
 //    msgbox->show();
@@ -84,30 +89,21 @@ void MainWindow::ExecuteShellCommands(QString str) {
 
     proc = qp.readAll();
 
-    QMessageBox * msgbox = new QMessageBox;
-    msgbox->setText(proc);
-    msgbox->show();
+    if(!proc.toStdString().empty())
+    {
+//        QMessageBox * msgbox = new QMessageBox;
+//        msgbox->setText(proc);
+//        msgbox->show();
+        ui->label_3->setText(proc);
+        return (QString)proc;
+    }
+    return "";
 }
 
-void MainWindow::RefreshInfoBatary(){
-    QProcess qp;
-    QString proc;
-    const int waitTime=15000;
-    QString cmd("connectDevice.sh");
-
-    qp.start("/bin/bash", QStringList() << cmd);
-    qp.waitForStarted(waitTime);
-    qp.waitForFinished(waitTime);
-
-    proc = qp.readAll();
-
-//    QMessageBox * msgbox = new QMessageBox;
-//    msgbox->setText(proc);
-//    msgbox->show();
-
-    ui->progressBar_2->setMinimum(0);
-    ui->progressBar_2->setMaximum(100);
-    if(proc.toInt() > 0) ui->progressBar_2->setValue(proc.toInt());
+void MainWindow::RefreshInfoBatary() {
+    QString proc1("adb shell su -c 'cat /sys/class/power_supply/battery/capacity'"), proc;
+    proc = this->ExecuteShellCommands(proc1);
+    ui->progressBar_2->setValue(proc.toInt());
 }
 
 MainWindow::~MainWindow()
