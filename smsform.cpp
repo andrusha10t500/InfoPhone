@@ -1,6 +1,7 @@
 #include "smsform.h"
 #include "ui_smsform.h"
 #include <mainwindow.h>
+#include <QMessageBox>
 
 SMSForm::SMSForm(QWidget *parent) :
     QWidget(parent),
@@ -13,14 +14,26 @@ SMSForm::SMSForm(QWidget *parent) :
 
 void SMSForm::SendMes() {
 
-    QString query("adb shell am start -a android.intent.action.SENDTO -d sms:'" + ui->lineEdit->text() + "' --es sms_body '" + ui->lineEdit_2->text() + "'");
-    this->exec(query);
-    query = "adb shell input keyevent 22";
-    this->exec(query);
-    query = "adb shell input keyevent 66";
-    this->exec(query);
-    query = "adb shell input keyevent 66";
-    this->exec(query);
+    if(!ui->checkBox->checkState() && !ui->checkBox_2->checkState())
+    {
+        QMessageBox * msgbox = new QMessageBox;
+        msgbox->setText("Не выбрана сим карта");
+        msgbox->show();
+    } else {
+        QString query("adb shell am start -a android.intent.action.SENDTO -d sms:'" + ui->lineEdit->text() + "' --es sms_body '" + ui->lineEdit_2->text() + "'");
+        this->exec(query);
+        query = "adb shell input keyevent 22 && sleep 1";
+        this->exec(query);
+        query = "adb shell input keyevent 66 && sleep 1";
+        this->exec(query);
+        if(ui->checkBox_2->checkState())
+        {
+            query = "adb shell input keyevent 20 && sleep 1";
+            this->exec(query);
+        }
+        query = "adb shell input keyevent 66";
+        this->exec(query);
+    }
 }
 
 void SMSForm::exec(QString query) {
