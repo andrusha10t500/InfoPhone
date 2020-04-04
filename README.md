@@ -51,7 +51,7 @@
                     make
                 </li>
                 <li>
-                    sudo cp ./InfoPhone /usr/bin/infophone
+                    sudo ln ./InfoPhone /usr/bin/infophone
                 </li>
             </ul>
         </li>
