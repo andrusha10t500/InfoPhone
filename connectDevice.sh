@@ -39,10 +39,18 @@ if [ "$DEVICE_ALL" = "" ]
    then adb -s ${conDev%:*} shell $cmd
    else echo 'your devices is not connected!'
   fi
- else
+else
   #На случай если 2 устройства
   DEVICE_ALL=$(adb devices | awk '/device/ && $1!~/List/ {print($1)}' | awk 'NR~/1/{printf($1)}')
-  exec adb -s ${DEVICE_ALL%:*} shell $cmd
+
+  adb -s ${DEVICE_ALL%:*} shell $cmd
+fi
+if [ -f Connection_device ] && [ "$DEVICE_ALL" != "$(cat Connection_device)" ]
+then
+    echo $DEVICE_ALL > Connection_device
+else
+    touch Connection_device
+    echo $DEVICE_ALL > Connection_device
 fi
 
 DEVICE_ALL=""

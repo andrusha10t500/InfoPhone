@@ -13,6 +13,7 @@
 #include <QProgressBar>
 #include <QTimer>
 #include <smsform.h>
+#include <QFile>
 
 namespace Ui {
 class MainWindow;    
@@ -33,7 +34,7 @@ private slots:
     void OpenWhatsApp();
     void OpenWebPage();
     void ExecCommand();
-    QString ExecuteShellCommands(QString str);
+    QString ExecuteShellCommands(QString str, int param);
     void RefreshInfoBatary();
     void OpenSmsForm();
 

@@ -8,9 +8,29 @@ MainWindow::MainWindow(QWidget *parent) :
     QProcess qp;
     QString proc;
     const int waitTime=15000;
-    QString cmd("su -c 'cat /sys/class/power_supply/battery/capacity'");
+    QString cmd("su -c 'cat /sys/class/power_supply/battery/capacity'"), NameDevice;
     QTimer * t = new QTimer(this);
     connect(t,SIGNAL(timeout()),this,SLOT(RefreshInfoBatary()));
+    QFile f("Connection_device");
+//    NameDevice=f.readLine();
+
+    QString str="";
+//    f.open(QIODevice::ReadWrite);
+//    while(!f.atEnd())
+//    {
+//        str=str+f.readLine();
+//    }
+//    f.close();
+    if((f.exists()&&f.open(QIODevice::ReadOnly))){
+//        QMessageBox * msgbox = new QMessageBox;
+//        msgbox->setText(f.readLine());
+//        msgbox->show();
+
+//        this->setWindowIcon("/home/leo/picture/icon_InfoPhone.png");
+//        this->setWindowTitle("123");
+        NameDevice=f.readLine();
+        f.close();
+    }
 
 //    ui->horizontalLayout_2->setGeometry();
 
@@ -26,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->progressBar_2->setMaximum(100);
 
     if(proc.toInt() > 0){
-        ui->label_2->setText("Информация о батарее");
+        ui->label_2->setText("Информация об устройстве " + NameDevice);
         ui->progressBar_2->setValue(proc.toInt());
         ui->pushButton->setEnabled(true);
         ui->pushButton_2->setEnabled(true);
@@ -54,17 +74,17 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::WakeUphone() {
-    this->ExecuteShellCommands("input keyevent 26");
+    this->ExecuteShellCommands("input keyevent 26",0);
     //adb shell input keyevent 26
 }
 
 void MainWindow::OpenWhatsApp() {
-    this->ExecuteShellCommands("am start -n com.whatsapp/com.whatsapp.Conversation");
+    this->ExecuteShellCommands("am start -n com.whatsapp/com.whatsapp.Conversation",0);
     //adb shell am start -n com.whatsapp/com.whatsapp.Conversation
 }
 
 void MainWindow::OpenWebPage() {
-    this->ExecuteShellCommands("am start -a android.intent.action.VIEW https://" + ui->lineEdit->text());
+    this->ExecuteShellCommands("am start -a android.intent.action.VIEW https://" + ui->lineEdit->text(),0);
 }
 
 void MainWindow::OpenSmsForm() {
@@ -73,10 +93,10 @@ void MainWindow::OpenSmsForm() {
 }
 
 void MainWindow::ExecCommand() {
-    this->ExecuteShellCommands(ui->lineEdit_2->text());
+    this->ExecuteShellCommands(ui->lineEdit_2->text(),1);
 }
 
-QString MainWindow::ExecuteShellCommands(QString str) {
+QString MainWindow::ExecuteShellCommands(QString str, int param) {
 //    QMessageBox * msgbox = new QMessageBox;
 //    msgbox->setText("/bin/bash connectDevice.sh " + str);
 //    msgbox->show();
@@ -91,21 +111,21 @@ QString MainWindow::ExecuteShellCommands(QString str) {
     qp.waitForFinished(waitTime);
 
     proc = qp.readAll();
-
-    if(!proc.toStdString().empty())
+//    param = 1 - нужен комментарий
+//    param = 0 - не нужен комментарий
+    if(param==1 && !proc.toStdString().empty())
     {
 //        QMessageBox * msgbox = new QMessageBox;
 //        msgbox->setText(proc);
 //        msgbox->show();
-        ui->label_3->setText(proc);
-        return (QString)proc;
+        ui->label_3->setText(proc);        
     }
-    return "";
+    return (QString)proc;
 }
 
 void MainWindow::RefreshInfoBatary() {
     QString proc1("su -c 'cat /sys/class/power_supply/battery/capacity'"), proc;
-    proc = this->ExecuteShellCommands(proc1);
+    proc = this->ExecuteShellCommands(proc1,0);
     ui->progressBar_2->setValue(proc.toInt());
 }
 
