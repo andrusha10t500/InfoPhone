@@ -33,15 +33,34 @@
         </li>
         <li>
             Далее клонировать с git всё и скомпилировать:
-            cd
-            git clone https://github.com/andrusha10t500/InfoPhone.git
-            cd InfoPhone 
-            qmake
-            make
-            sudo chmod 755 ./InfoPhone
+            <u>
+                <l>
+                    cd
+                </l>
+                <l>
+                    git clone https://github.com/andrusha10t500/InfoPhone.git
+                </l>
+                <l>
+                    cd InfoPhone
+                </l>
+                <l>
+                    qmake
+                </l>
+                <l>
+                    make
+                </l>
+                <l>
+                    sudo chmod 755 ./InfoPhone
+                </l>
+            </u>
         </li>
         <li>
-            запустить приложение можно командой ./InfoPhone
+            запустить приложение можно командой
+            <u>
+                <l>
+                    ./InfoPhone
+                </l>
+            </u>
         </li>
 </ul>
 <img src="" alt="">
