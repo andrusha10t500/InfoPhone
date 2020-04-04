@@ -34,24 +34,24 @@
         <li>
             Далее клонировать с git всё и скомпилировать:
             <u>
-                <l>
+                <li>
                     cd
-                </l>
-                <l>
+                </li>
+                <li>
                     git clone https://github.com/andrusha10t500/InfoPhone.git
-                </l>
-                <l>
+                </li>
+                <li>
                     cd InfoPhone
-                </l>
-                <l>
+                </li>
+                <li>
                     qmake
-                </l>
-                <l>
+                </li>
+                <li>
                     make
-                </l>
-                <l>
+                </li>
+                <li>
                     sudo chmod 755 ./InfoPhone
-                </l>
+                </li>
             </u>
         </li>
         <li>
