@@ -31,8 +31,9 @@ void SMSForm::SendMes() {
             query = "adb shell input keyevent 20 && sleep 1";
             this->exec(query);
         }
-        query = "adb shell input keyevent 66";
+        query = "adb shell input keyevent 66 && sleep 1";
         this->exec(query);
+        this->close();
     }
 }
 

@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ -n "$1" ]
+then
+  cmd=$1
+fi
+
 DEVICE_ALL=$(adb devices | awk '/device/ && $1!~/List/ {print($1)}')
 
 function connectDevice() {
@@ -30,14 +35,14 @@ if [ "$DEVICE_ALL" = "" ]
   conDev=$(echo ${conDev%:*} | awk '{print($2)}')  
 
   if [ "$conDev" != "" ]   
-   then adb -s ${conDev%:*} shell su -c 'cat /sys/class/power_supply/battery/capacity'   
+   #then adb -s ${conDev%:*} shell su -c 'cat /sys/class/power_supply/battery/capacity'
+   then adb -s ${conDev%:*} shell $cmd
    else echo 'your devices is not connected!'
   fi
  else
-  #На случай если 2 устройства, грохаем сервер
-  #adb kill-server
+  #На случай если 2 устройства
   DEVICE_ALL=$(adb devices | awk '/device/ && $1!~/List/ {print($1)}' | awk 'NR~/1/{printf($1)}')
-  exec adb -s ${DEVICE_ALL%:*} shell su -c "cat /sys/class/power_supply/battery/capacity"
+  exec adb -s ${DEVICE_ALL%:*} shell $cmd
 fi
 
 DEVICE_ALL=""

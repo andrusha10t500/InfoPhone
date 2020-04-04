@@ -8,12 +8,14 @@ MainWindow::MainWindow(QWidget *parent) :
     QProcess qp;
     QString proc;
     const int waitTime=15000;
-    QString cmd("connectDevice.sh");
+    QString cmd("su -c 'cat /sys/class/power_supply/battery/capacity'");
     QTimer * t = new QTimer(this);
     connect(t,SIGNAL(timeout()),this,SLOT(RefreshInfoBatary()));
 
+//    ui->horizontalLayout_2->setGeometry();
 
-    qp.start("/bin/bash", QStringList() << cmd);
+//    qp.start("/bin/bash connectDevice.sh", QStringList() << cmd);
+    qp.start("/bin/bash connectDevice.sh \"" + cmd + "\"");
     qp.waitForStarted(waitTime);
     qp.waitForFinished(waitTime);
 
@@ -52,17 +54,17 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::WakeUphone() {
-    this->ExecuteShellCommands("adb shell input keyevent 26");
+    this->ExecuteShellCommands("input keyevent 26");
     //adb shell input keyevent 26
 }
 
 void MainWindow::OpenWhatsApp() {
-    this->ExecuteShellCommands("adb shell am start -n com.whatsapp/com.whatsapp.Conversation");
+    this->ExecuteShellCommands("am start -n com.whatsapp/com.whatsapp.Conversation");
     //adb shell am start -n com.whatsapp/com.whatsapp.Conversation
 }
 
 void MainWindow::OpenWebPage() {
-    this->ExecuteShellCommands("adb shell am start -a android.intent.action.VIEW https://" + ui->lineEdit->text());
+    this->ExecuteShellCommands("am start -a android.intent.action.VIEW https://" + ui->lineEdit->text());
 }
 
 void MainWindow::OpenSmsForm() {
@@ -71,19 +73,20 @@ void MainWindow::OpenSmsForm() {
 }
 
 void MainWindow::ExecCommand() {
-    this->ExecuteShellCommands("adb shell " + ui->lineEdit_2->text());
+    this->ExecuteShellCommands(ui->lineEdit_2->text());
 }
 
 QString MainWindow::ExecuteShellCommands(QString str) {
 //    QMessageBox * msgbox = new QMessageBox;
-//    msgbox->setText(str);
+//    msgbox->setText("/bin/bash connectDevice.sh " + str);
 //    msgbox->show();
 
     QProcess qp;
     QString proc;
     const int waitTime=15000;
 
-    qp.start(str);
+//    qp.start("/bin/bash connectDevice.sh", QStringList() << str);
+    qp.start("/bin/bash connectDevice.sh \"" + str + "\"");
     qp.waitForStarted(waitTime);
     qp.waitForFinished(waitTime);
 
@@ -101,7 +104,7 @@ QString MainWindow::ExecuteShellCommands(QString str) {
 }
 
 void MainWindow::RefreshInfoBatary() {
-    QString proc1("adb shell su -c 'cat /sys/class/power_supply/battery/capacity'"), proc;
+    QString proc1("su -c 'cat /sys/class/power_supply/battery/capacity'"), proc;
     proc = this->ExecuteShellCommands(proc1);
     ui->progressBar_2->setValue(proc.toInt());
 }
