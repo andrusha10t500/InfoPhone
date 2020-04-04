@@ -50,7 +50,7 @@
                     make
                 </li>
                 <li>
-                    sudo ./InfoPhone /usr/bin/infophone
+                    sudo cp ./InfoPhone /usr/bin/infophone
                 </li>
             </ul>
         </li>
