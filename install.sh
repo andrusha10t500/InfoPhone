@@ -37,5 +37,4 @@ git clone https://github.com/andrusha10t500/InfoPhone.git
 cd InfoPhone
 qmake
 make
-sudo ln ./InfoPhone /usr/bin/infophone
-
+./InfoPhone

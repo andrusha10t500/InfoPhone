@@ -49,17 +49,14 @@
                 </li>
                 <li>
                     make
-                </li>
-                <li>
-                    sudo ln ./InfoPhone /usr/bin/infophone
-                </li>
+                </li>                
             </ul>
         </li>
         <li>
             запустить приложение можно командой
             <ul>
                 <l>
-                    infophone
+                    ./InfoPhone
                 </l>
             </ul>
         </li>
