@@ -127,6 +127,13 @@ void MainWindow::RefreshInfoBatary() {
     QString proc1("su -c 'cat /sys/class/power_supply/battery/capacity'"), proc;
     proc = this->ExecuteShellCommands(proc1,0);
     ui->progressBar_2->setValue(proc.toInt());
+
+    QFile f("Connection_device");
+
+    if((f.exists()&&f.open(QIODevice::ReadOnly))){
+        ui->label_2->setText("Информация об устройстве " + f.readLine());
+        f.close();
+    }
 }
 
 MainWindow::~MainWindow()
