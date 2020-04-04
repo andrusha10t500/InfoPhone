@@ -21,7 +21,7 @@
             <a href="https://xakep.ru/2017/02/03/wsl-in-colors/">Ссылка</a>
         </li>
         <li>
-            Далее в консоли bash нужно установить adb, qmake, make, g++. Можно это сделать командой sudo apt-gett update && sudo apt-get upgrade && sudo apt-get install qt5-qmake android-tools-adb make g++ -y
+            Далее в консоли bash нужно установить adb, qmake, make, g++. Можно это сделать командой <p style="background: gray; color: black">$ sudo apt-get update && sudo apt-get upgrade && sudo apt-get install qt5-qmake android-tools-adb make g++ -y</p>
         </li>
         <li>
             т.к. USB - устройства не фиксируются в Windows'ком ubuntu - остаётся ловить телефон только по сети. Устройство и компьютер должны быть в одной сети.
