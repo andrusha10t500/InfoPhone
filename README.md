@@ -50,7 +50,7 @@
                     make
                 </li>
                 <li>
-                    sudo chmod 755 ./InfoPhone
+                    sudo ./InfoPhone /usr/bin/infophone
                 </li>
             </ul>
         </li>
@@ -58,7 +58,7 @@
             запустить приложение можно командой
             <ul>
                 <l>
-                    ./InfoPhone
+                    infophone
                 </l>
             </ul>
         </li>
