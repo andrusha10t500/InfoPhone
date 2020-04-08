@@ -2,7 +2,7 @@
 <h1>Информация о телефоне</h1>
 <p style="text-align: center"><h1>Linux</h1></p>
 <p>Программа благодаря скрипту <ins>connectDevice.sh</ins> соединятся с устройством через ADB. После чего обращается к устройству для того что бы извлечь необходимую информацию</p>
-<p>Для того что бы всё работало, надо скомпилировать программу и положить в папку release или debug файл <ins>connectDevice.sh</ins></p>
+<p>Для того что бы всё работало, надо скомпилировать программу.<ins>connectDevice.sh</ins></p>
 
 <p><img src="https://raw.githubusercontent.com/andrusha10t500/InfoPhone/master/InfoPhone.jpg" alt=""></p>
 
@@ -33,16 +33,10 @@
             нужно перенести ключ на телефон и сделать это командой к примеру: echo $(cat /storage/sdcard1/Download/adbkey.pub) >> /data/misc/adb/adb_keys
         </li>
         <li>
-            Далее клонировать с git всё и скомпилировать:
+            Далее:
             <ul>
                 <li>
-                    cd
-                </li>
-                <li>
-                    git clone https://github.com/andrusha10t500/InfoPhone.git
-                </li>
-                <li>
-                    cd InfoPhone
+                    cd ~/InfoPhone
                 </li>
                 <li>
                     qmake

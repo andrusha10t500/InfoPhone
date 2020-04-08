@@ -32,9 +32,13 @@ then
   sudo apt-get install g++ -y
 fi
 
-cd 
-git clone https://github.com/andrusha10t500/InfoPhone.git
-cd InfoPhone
+if [ ! `which sqlite3` ]
+then 
+  echo 'Устанавливается sqlite3:'
+  sudo apt-get install sqlite3 -y
+fi
+
+cd `pwd`
 qmake
 make
 ./InfoPhone

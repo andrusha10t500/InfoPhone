@@ -18,6 +18,7 @@ public:
 
 private slots:
     void SendMes();
+    void RefreshDB();
 
 private:
     Ui::SMSForm *ui;

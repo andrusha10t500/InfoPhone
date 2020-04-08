@@ -14,6 +14,7 @@
 #include <QTimer>
 #include <smsform.h>
 #include <QFile>
+#include <QtSql>
 
 namespace Ui {
 class MainWindow;    
