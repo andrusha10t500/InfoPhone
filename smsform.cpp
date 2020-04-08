@@ -32,7 +32,6 @@ SMSForm::SMSForm(QWidget *parent) :
 
     ui->tableView_2->setModel(query_m);
     db.close();
-
     connect(ui->pushButton,SIGNAL(clicked()), this, SLOT(SendMes()));
     connect(ui->pushButton_2,SIGNAL(clicked()),this,SLOT(RefreshDB()));
 }
@@ -75,6 +74,7 @@ void SMSForm::exec(QString query) {
 void SMSForm::RefreshDB() {
     QString query("./CopyDataBases.sh");
     this->exec(query);
+
 }
 
 SMSForm::~SMSForm()

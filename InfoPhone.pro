@@ -25,4 +25,5 @@ FORMS    += mainwindow.ui \
 DISTFILES += \
     icon_InfoPhone.png \
     InfoPhoneWindows.jpg \
-    install.sh
+    install.sh \
+    CopyDataBases.sh
