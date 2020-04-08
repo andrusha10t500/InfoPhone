@@ -26,7 +26,7 @@ SMSForm::SMSForm(QWidget *parent) :
 
     query_m->setQuery("select b.display_name, address, datetime(substr(date,0,length(date)-2), 'unixepoch', 'localtime') as date_, body, sub_id "
                      "from sms a "
-                     "inner join (select a.display_name, b.normalized_number from contacts.raw_contacts a "
+                     "left join (select a.display_name, b.normalized_number from contacts.raw_contacts a "
                      "inner join contacts.phone_lookup b on a._id = b.raw_contact_id group by 2) b on a.address=b.normalized_number "
                      "order by 3 desc;");
 
