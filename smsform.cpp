@@ -36,6 +36,10 @@ SMSForm::SMSForm(QWidget *parent) :
     connect(ui->pushButton_2,SIGNAL(clicked()),this,SLOT(RefreshDB()));
 }
 
+void SMSForm::init() {
+
+}
+
 void SMSForm::SendMes() {
 
     if(!ui->checkBox->checkState() && !ui->checkBox_2->checkState())

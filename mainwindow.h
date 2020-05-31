@@ -38,6 +38,8 @@ private slots:
     QString ExecuteShellCommands(QString str, int param);
     void RefreshInfoBatary();
     void OpenSmsForm();
+    void EnterNumber();
+    void CallNumber();
 
 private:
     Ui::MainWindow *ui;

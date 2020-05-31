@@ -21,6 +21,7 @@ private slots:
     void RefreshDB();
 
 private:
+    void init();
     Ui::SMSForm *ui;
 
 };

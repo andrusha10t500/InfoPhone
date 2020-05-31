@@ -53,6 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->pushButton_3->setEnabled(true);
         ui->pushButton_4->setEnabled(true);
         ui->pushButton_5->setEnabled(true);
+        ui->pushButton_6->setEnabled(true);
+        ui->pushButton_7->setEnabled(true);
         t->start(10000);
         connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(WakeUphone()));
         connect(ui->pushButton_2,SIGNAL(clicked()),this,SLOT(OpenWhatsApp()));
@@ -61,6 +63,8 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->pushButton_3,SIGNAL(clicked()),this,SLOT(OpenWebPage()));
         connect(ui->pushButton_4,SIGNAL(clicked()),this,SLOT(ExecCommand()));
         connect(ui->pushButton_5,SIGNAL(clicked()),this,SLOT(OpenSmsForm()));
+        connect(ui->pushButton_6,SIGNAL(clicked()),this,SLOT(EnterNumber()));
+        connect(ui->pushButton_7,SIGNAL(clicked()),this,SLOT(CallNumber()));
 
     } else {
         ui->label_2->setText("Телефон не подключен");
@@ -70,6 +74,8 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->pushButton_3->setEnabled(false);
         ui->pushButton_4->setEnabled(false);
         ui->pushButton_5->setEnabled(false);
+        ui->pushButton_6->setEnabled(false);
+        ui->pushButton_7->setEnabled(false);
     }
 }
 
@@ -84,7 +90,7 @@ void MainWindow::OpenWhatsApp() {
 }
 
 void MainWindow::OpenWebPage() {
-    this->ExecuteShellCommands("am start -a android.intent.action.VIEW https://" + ui->lineEdit->text(),0);
+    this->ExecuteShellCommands("am start -a android.intent.action.VIEW " + ui->lineEdit->text(),0);
 }
 
 void MainWindow::OpenSmsForm() {
@@ -134,6 +140,26 @@ void MainWindow::RefreshInfoBatary() {
         ui->label_2->setText("Информация об устройстве " + f.readLine());
         f.close();
     }
+}
+
+void MainWindow::EnterNumber() {
+    //am start -a android.intent.action.CALL tel:
+    //input keyevent 66
+    //input keyevent 66
+    QString proc1("am start -a android.intent.action.DIAL tel:" + ui->lineEdit_3->text());
+    this->ExecuteShellCommands(proc1,0);
+}
+
+void MainWindow::CallNumber() {
+    //am start -a android.intent.action.CALL tel:
+    //input keyevent 66
+    //input keyevent 66
+    QString proc1("am start -a android.intent.action.CALL tel:" + ui->lineEdit_3->text());
+    this->ExecuteShellCommands(proc1,0);
+    proc1="sleep 1 && input keyevent 66";
+    this->ExecuteShellCommands(proc1,0);
+    proc1="sleep 1 && input keyevent 66";
+    this->ExecuteShellCommands(proc1,0);
 }
 
 MainWindow::~MainWindow()
