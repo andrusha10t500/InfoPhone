@@ -48,7 +48,13 @@ void SMSForm::SendMes() {
         msgbox->setText("Не выбрана сим карта");
         msgbox->show();
     } else {
-        QString query("adb shell am start -a android.intent.action.SENDTO -d sms:'" + ui->lineEdit->text() + "' --es sms_body '" + ui->lineEdit_2->text() + "'");
+        QString query = "adb shell input keyevent 3 && sleep 1";
+        this->exec(query);
+        query = "adb shell input keyevent 82 && sleep 1";
+        this->exec(query);
+        query = "adb shell input keyevent 67 && sleep 1";
+        this->exec(query);
+        query="adb shell am start -a android.intent.action.SENDTO -d sms:'" + ui->lineEdit->text() + "' --es sms_body '" + ui->lineEdit_2->text() + "'";
         this->exec(query);
         query = "adb shell input keyevent 22 && sleep 1";
         this->exec(query);
@@ -56,6 +62,7 @@ void SMSForm::SendMes() {
         this->exec(query);
         if(ui->checkBox_2->checkState())
         {
+            query = "adb shell input keyevent 1 && sleep 1";
             query = "adb shell input keyevent 20 && sleep 1";
             this->exec(query);
         }

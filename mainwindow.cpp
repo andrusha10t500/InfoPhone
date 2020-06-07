@@ -81,6 +81,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::WakeUphone() {
     this->ExecuteShellCommands("input keyevent 26",0);
+//    this->ExecuteShellCommands("input keyevent 82 && sleep 1",0);
+//    this->ExecuteShellCommands("input keyevent 67",0);
+
     //adb shell input keyevent 26
 }
 
@@ -146,7 +149,9 @@ void MainWindow::EnterNumber() {
     //am start -a android.intent.action.CALL tel:
     //input keyevent 66
     //input keyevent 66
-    QString proc1("am start -a android.intent.action.DIAL tel:" + ui->lineEdit_3->text());
+    QString proc1("input keyevent 3");
+    this->ExecuteShellCommands(proc1,0);
+    proc1 = "am start -a android.intent.action.DIAL tel:" + ui->lineEdit_3->text();
     this->ExecuteShellCommands(proc1,0);
 }
 
@@ -154,7 +159,9 @@ void MainWindow::CallNumber() {
     //am start -a android.intent.action.CALL tel:
     //input keyevent 66
     //input keyevent 66
-    QString proc1("am start -a android.intent.action.CALL tel:" + ui->lineEdit_3->text());
+    QString proc1("input keyevent 3");
+    this->ExecuteShellCommands(proc1,0);
+    proc1="am start -a android.intent.action.CALL tel:" + ui->lineEdit_3->text();
     this->ExecuteShellCommands(proc1,0);
     proc1="sleep 1 && input keyevent 66";
     this->ExecuteShellCommands(proc1,0);
