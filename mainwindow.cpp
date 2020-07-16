@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QProcess qp;
     QString proc;
     const int waitTime=15000;
-    QString cmd("su -c 'cat /sys/class/power_supply/battery/capacity'"), NameDevice;
+    QString cmd("su -c cat /sys/class/power_supply/battery/capacity"), NameDevice;
     QTimer * t = new QTimer(this);
     connect(t,SIGNAL(timeout()),this,SLOT(RefreshInfoBatary()));
     QFile f("Connection_device");
@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //        str=str+f.readLine();
 //    }
 //    f.close();
-    if((f.exists()&&f.open(QIODevice::ReadOnly))){
+    if((f.exists() && f.open(QIODevice::ReadOnly))){
 //        QMessageBox * msgbox = new QMessageBox;
 //        msgbox->setText(f.readLine());
 //        msgbox->show();

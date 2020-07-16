@@ -62,7 +62,6 @@ void SMSForm::SendMes() {
         this->exec(query);
         if(ui->checkBox_2->checkState())
         {
-            query = "adb shell input keyevent 1 && sleep 1";
             query = "adb shell input keyevent 20 && sleep 1";
             this->exec(query);
         }
